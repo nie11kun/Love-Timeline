@@ -13,12 +13,12 @@
 
 1. 克隆仓库：
    ```
-   git clone [您的仓库URL]
+   git clone https://github.com/nie11kun/Love-Timeline.git
    ```
 
 2. 进入项目目录：
    ```
-   cd [项目目录名]
+   cd Love-Timeline
    ```
 
 3. 安装依赖：
@@ -55,7 +55,7 @@ public/images/
 
 ```javascript
 const importantDates = [
-  { date: '2022-11-19', event: '在青藤上相遇', image: '/images/2022-11-19/1.jpg' },
+  { date: '2022-01-19', event: '在青藤上相遇', image: '/images/2022-01-19/1.jpg' },
   // 添加新的日期事件...
 ];
 ```
@@ -82,7 +82,6 @@ const importantDates = [
 
 - 请确保您有权使用所有图片，并遵守相关的版权法。
 - 定期备份 `public/images` 目录，因为这些文件不在版本控制中。
-- 如果您计划公开展示这个项目，请确保得到所有相关人员的同意。
 
 ## 贡献
 
