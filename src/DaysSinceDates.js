@@ -3,13 +3,13 @@ import { differenceInDays, parse } from 'date-fns';
 import { Heart, X, Image as ImageIcon, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 
 const importantDates = [
-  { date: '2022-11-19', event: '第一次在青藤上找到你', image: '/images/2022-11-19/1.jpg' },
+  { date: '2022-11-19', event: '在青藤上相遇', image: '/images/2022-11-19/1.jpg' },
   { date: '2022-11-24', event: '第一次见面', image: '/images/2022-11-24/1.jpg' },
   { date: '2022-12-19', event: '正式在一起', image: '/images/2022-12-19/1.jpg' },
-  { date: '2023-10-05', event: '订婚', image: '/images/2023-10-05/1.jpg' },
-  { date: '2023-10-30', event: '领结婚证', image: '/images/2023-10-30/1.jpg' },
-  { date: '2024-01-28', event: '结婚典礼', image: '/images/2024-01-28/1.jpg' },
-  { date: '2024-06-17', event: '怀孕', image: '/images/2024-06-17/1.jpg' },
+  { date: '2023-10-05', event: '我们订婚啦', image: '/images/2023-10-05/1.jpg' },
+  { date: '2023-10-30', event: '我们领证啦', image: '/images/2023-10-30/1.jpg' },
+  { date: '2024-01-28', event: '我们结婚啦', image: '/images/2024-01-28/1.jpg' },
+  { date: '2024-06-17', event: '发现有了新生命', image: '/images/2024-06-17/1.jpg' },
 ];
 
 const FullScreenImage = ({ src, onClose, onNext, onPrev }) => {
