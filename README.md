@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# 我们的爱情时光线
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+这是一个展示重要日期和纪念日的 React 应用程序。它创建了一个温馨的时间线，展示了您与伴侣之间的重要时刻。
 
-## Available Scripts
+## 功能
 
-In the project directory, you can run:
+- 展示重要日期的卡片，包括事件、日期和已经过去的天数
+- 美化的背景和卡片设计
+- 点击卡片可以查看相关图片
+- 响应式设计，适应不同屏幕尺寸
 
-### `npm start`
+## 安装
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. 克隆仓库：
+   ```
+   git clone [您的仓库URL]
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. 进入项目目录：
+   ```
+   cd [项目目录名]
+   ```
 
-### `npm test`
+3. 安装依赖：
+   ```
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. 启动开发服务器：
+   ```
+   npm start
+   ```
 
-### `npm run build`
+## 图片管理
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+本项目使用 `public/images` 目录来存储和管理图片。每个日期事件的图片应该放在对应的子目录中，例如：
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+public/images/
+  2022-11-19/
+    1.jpg
+    2.jpg
+  2022-11-24/
+    1.jpg
+  ...
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 注意：图片不包含在版本控制中
 
-### `npm run eject`
+为了保护隐私并减少仓库大小，`public/images` 目录中的图片文件不包含在 Git 版本控制中。您需要手动管理这些图片。
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 添加新的日期事件
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+要添加新的日期事件，请编辑 `src/components/DaysSinceDates.js` 文件中的 `importantDates` 数组：
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```javascript
+const importantDates = [
+  { date: '2022-11-19', event: '在青藤上相遇', image: '/images/2022-11-19/1.jpg' },
+  // 添加新的日期事件...
+];
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+确保为新事件添加相应的图片到 `public/images` 目录。
 
-## Learn More
+## 自定义样式
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 背景样式可以在 `src/components/DaysSinceDates.js` 文件中的 `bg-love-pattern` 类中修改。
+- 卡片样式可以在同一文件中的相应 JSX 部分进行调整。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 部署
 
-### Code Splitting
+1. 构建生产版本：
+   ```
+   npm run build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. 将 `build` 目录部署到您的网络服务器。
 
-### Analyzing the Bundle Size
+3. 确保将 `public/images` 目录中的图片复制到生产环境的相应位置。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 注意事项
 
-### Making a Progressive Web App
+- 请确保您有权使用所有图片，并遵守相关的版权法。
+- 定期备份 `public/images` 目录，因为这些文件不在版本控制中。
+- 如果您计划公开展示这个项目，请确保得到所有相关人员的同意。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 贡献
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+欢迎提出改进建议和 pull requests。对于重大更改，请先开 issue 讨论您想要改变的内容。
