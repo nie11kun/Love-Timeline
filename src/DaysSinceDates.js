@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { differenceInDays, parse } from 'date-fns';
 import { Heart, X, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -13,6 +13,23 @@ const importantDates = [
 ];
 
 const FullScreenImage = ({ src, onClose, onNext, onPrev }) => {
+  const handleKeyDown = useCallback((event) => {
+    if (event.key === 'ArrowLeft') {
+      onPrev();
+    } else if (event.key === 'ArrowRight') {
+      onNext();
+    } else if (event.key === 'Escape') {
+      onClose();
+    }
+  }, [onClose, onNext, onPrev]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
       <button onClick={onClose} className="absolute top-4 right-4 text-white">
@@ -103,13 +120,13 @@ const DaysSinceDates = () => {
     setFullScreenImage(null);
   };
 
-  const nextFullScreenImage = () => {
+  const nextFullScreenImage = useCallback(() => {
     setFullScreenImage((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevFullScreenImage = () => {
+  const prevFullScreenImage = useCallback(() => {
     setFullScreenImage((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-100 to-purple-100 py-12 px-4 sm:px-6 lg:px-8 font-serif">
