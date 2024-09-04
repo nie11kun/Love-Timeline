@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { differenceInDays, parse } from 'date-fns';
 import { Heart, X, Image as ImageIcon, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 // 定义重要日期数组,包含日期、事件描述和对应的图片路径
 const importantDates = [
@@ -15,7 +16,36 @@ const importantDates = [
 
 // 全屏图片查看组件
 const FullScreenImage = ({ src, onClose, onNext, onPrev }) => {
-    // 处理键盘事件的回调函数
+    const touchStartX = useRef(null);
+    const touchEndX = useRef(null);
+    const [isSwiping, setIsSwiping] = useState(false);
+    const [swipeDistance, setSwipeDistance] = useState(0);
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+        setIsSwiping(true);
+    };
+
+    const handleTouchMove = (e) => {
+        if (!isSwiping) return;
+        touchEndX.current = e.touches[0].clientX;
+        const distance = touchEndX.current - touchStartX.current;
+        setSwipeDistance(distance);
+    };
+
+    const handleTouchEnd = () => {
+        if (!isSwiping) return;
+        setIsSwiping(false);
+        if (Math.abs(swipeDistance) > 100) { // Increased threshold for more intentional swipes
+            if (swipeDistance > 0) {
+                onPrev();
+            } else {
+                onNext();
+            }
+        }
+        setSwipeDistance(0);
+    };
+
     const handleKeyDown = useCallback((event) => {
         if (event.key === 'ArrowLeft') {
             onPrev();
@@ -34,9 +64,20 @@ const FullScreenImage = ({ src, onClose, onNext, onPrev }) => {
         };
     }, [handleKeyDown]);
 
+    const imageStyle = {
+        transform: `translateX(${swipeDistance}px)`,
+        transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
+    };
+
     // 渲染全屏图片查看器
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50" onClick={onClose}>
+        <div 
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50" 
+            onClick={onClose}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             {/* 关闭按钮 */}
             <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-4 right-4 text-white hover:text-pink-300 transition-colors duration-300">
                 <X size={32} />
@@ -46,7 +87,13 @@ const FullScreenImage = ({ src, onClose, onNext, onPrev }) => {
                 <ChevronLeft size={32} />
             </button>
             {/* 图片显示 */}
-            <img src={src} alt="Full screen" className="max-h-[90vh] max-w-[90vw] object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
+            <img 
+                src={src} 
+                alt="Full screen" 
+                className="max-h-[90vh] max-w-[90vw] object-contain shadow-2xl" 
+                onClick={(e) => e.stopPropagation()} 
+                style={imageStyle}
+            />
             {/* 下一张图片按钮 */}
             <button onClick={(e) => { e.stopPropagation(); onNext(); }} className="absolute right-4 text-white hover:text-pink-300 transition-colors duration-300">
                 <ChevronRight size={32} />
@@ -176,43 +223,54 @@ const DaysSinceDates = () => {
                         const date = parse(item.date, 'yyyy-MM-dd', new Date());
                         const daysSince = differenceInDays(today, date);
                         return (
-                            <div
+                            <motion.div
                                 key={index}
-                                className="rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl cursor-pointer relative h-48"
+                                className="rounded-lg shadow-lg overflow-hidden cursor-pointer relative h-48"
                                 onClick={() => handleCardClick(item.date)}
+                                whileHover={{ 
+                                    scale: 1.05,
+                                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
                             >
-                                {/* 背景图片 */}
                                 <div 
-                                    className="absolute inset-0 bg-cover bg-center"
+                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out transform hover:scale-110"
                                     style={{
                                         backgroundImage: `url(${item.image})`,
-                                        filter: 'blur(3px) brightness(1.1)',
-                                        transform: 'scale(1.1)',
+                                        filter: 'blur(3px) brightness(1.2)',
                                     }}
                                 ></div>
-                                {/* 渐变遮罩 */}
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
-                                {/* 卡片内容 */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60"></div>
                                 <div className="absolute inset-0 flex flex-col justify-between p-4 z-10">
                                     <div>
-                                        <h2 className="text-xl font-bold text-white mb-2 line-clamp-1 shadow-text">{item.event}</h2>
+                                        <h2 className="text-xl font-bold text-white mb-2 line-clamp-1 shadow-text transition-colors duration-300 hover:text-pink-300">{item.event}</h2>
                                         <div className="flex items-center text-white text-sm shadow-text">
                                             <Calendar size={14} className="mr-1" />
                                             <p>{item.date}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-end">
-                                        <p className="text-5xl font-bold text-pink-300 mr-2 shadow-text">
+                                        <motion.p 
+                                            className="text-5xl font-bold text-pink-300 mr-2 shadow-text"
+                                            whileHover={{ scale: 1.1 }}
+                                        >
                                             {daysSince}
-                                        </p>
+                                        </motion.p>
                                         <p className="text-lg text-white mb-1 shadow-text">天的爱</p>
                                     </div>
                                 </div>
-                                {/* 心形图标 */}
-                                <Heart className="absolute top-2 right-2 text-pink-400 z-20" size={24} />
-                                {/* 底部彩色条 */}
+                                <motion.div
+                                    className="absolute top-2 right-2 text-pink-400 z-20"
+                                    whileHover={{ scale: 1.2 }}
+                                    whileTap={{ scale: 0.8 }}
+                                >
+                                    <Heart size={24} />
+                                </motion.div>
                                 <div className={`h-1 ${getColorClass(index)} absolute bottom-0 left-0 right-0 z-20`}></div>
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>
