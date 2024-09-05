@@ -47,21 +47,21 @@ const MusicPlayer = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-lg p-4">
       <div className="max-w-3xl mx-auto flex items-center justify-between">
-        <div className="flex-1">
-          <p className="text-lg font-semibold text-gray-800">{playlist[currentTrack].title}</p>
-          <p className="text-sm text-gray-600">{playlist[currentTrack].artist}</p>
+        <div className="flex-1 mr-4">
+          <p className="text-lg font-semibold text-gray-800 truncate">{playlist[currentTrack].title}</p>
+          <p className="text-sm text-gray-600 truncate">{playlist[currentTrack].artist}</p>
         </div>
-        <div className="flex items-center space-x-4">
-          <button onClick={prevTrack} className="text-gray-600 hover:text-pink-500 transition-colors">
-            <SkipBack size={24} />
+        <div className="flex items-center space-x-4 sm:space-x-6">
+          <button onClick={prevTrack} className="text-gray-600 hover:text-pink-500 transition-colors p-2">
+            <SkipBack size={28} className="w-7 h-7 sm:w-8 sm:h-8" />
           </button>
-          <button onClick={togglePlay} className="bg-pink-500 text-white rounded-full p-2 hover:bg-pink-600 transition-colors">
-            {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+          <button onClick={togglePlay} className="bg-pink-500 text-white rounded-full p-3 sm:p-4 hover:bg-pink-600 transition-colors">
+            {isPlaying ? <Pause size={32} className="w-8 h-8 sm:w-10 sm:h-10" /> : <Play size={32} className="w-8 h-8 sm:w-10 sm:h-10" />}
           </button>
-          <button onClick={nextTrack} className="text-gray-600 hover:text-pink-500 transition-colors">
-            <SkipForward size={24} />
+          <button onClick={nextTrack} className="text-gray-600 hover:text-pink-500 transition-colors p-2">
+            <SkipForward size={28} className="w-7 h-7 sm:w-8 sm:h-8" />
           </button>
-          <button onClick={toggleMute} className="text-gray-600 hover:text-pink-500 transition-colors">
+          <button onClick={toggleMute} className="text-gray-600 hover:text-pink-500 transition-colors hidden sm:block">
             {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
           </button>
         </div>
