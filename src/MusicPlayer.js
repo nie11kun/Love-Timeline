@@ -46,12 +46,12 @@ const MusicPlayer = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-lg p-4">
-      <div className="max-w-3xl mx-auto flex items-center justify-between">
-        <div className="flex-1 mr-4">
+      <div className="max-w-3xl mx-auto flex items-center">
+        <div className="flex-shrink min-w-0 w-1/2 mr-4">
           <p className="text-lg font-semibold text-gray-800 truncate">{playlist[currentTrack].title}</p>
           <p className="text-sm text-gray-600 truncate">{playlist[currentTrack].artist}</p>
         </div>
-        <div className="flex items-center space-x-4 sm:space-x-6">
+        <div className="flex-shrink-0 flex items-center space-x-4 sm:space-x-6">
           <button onClick={prevTrack} className="text-gray-600 hover:text-pink-500 transition-colors p-2">
             <SkipBack size={28} className="w-7 h-7 sm:w-8 sm:h-8" />
           </button>
