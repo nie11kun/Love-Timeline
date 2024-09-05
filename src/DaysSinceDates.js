@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { differenceInDays, parse } from 'date-fns';
 import { Heart, X, Image as ImageIcon, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
+import MusicPlayer from './MusicPlayer'; // 导入 MusicPlayer 组件
 
 // 定义重要日期数组,包含日期、事件描述和对应的图片路径
 const importantDates = [
@@ -214,7 +215,7 @@ const DaysSinceDates = () => {
 
     // 渲染主组件
     return (
-        <div className="min-h-screen bg-love-pattern bg-fixed py-12 px-4 sm:px-6 lg:px-8 font-serif">
+        <div className="min-h-screen bg-love-pattern bg-fixed pt-12 pb-24 px-4 sm:px-6 lg:px-8 font-serif"> {/* 增加底部 padding */}
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-bold text-center text-pink-600 mb-12 italic drop-shadow-lg">我们的爱情时光</h1>
                 {/* 重要日期卡片网格 */}
@@ -328,6 +329,10 @@ const DaysSinceDates = () => {
                     onPrev={prevFullScreenImage}
                 />
             )}
+            {/* 添加 MusicPlayer 组件 */}
+            <div className="fixed bottom-0 left-0 right-0 z-50">
+                <MusicPlayer />
+            </div>
         </div>
     );
 };
