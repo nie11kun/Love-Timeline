@@ -1,6 +1,6 @@
 # 我们的爱情时光线
 
-这是一个展示重要日期和纪念日的 React 应用程序。它创建了一个温馨的时间线，展示了您与伴侣之间的重要时刻。
+这是一个展示重要日期和纪念日的 React 应用程序。它创建了一个温馨的时间线，展示了您与伴侣之间的重要时刻，并配有背景音乐播放器。
 
 ## 功能
 
@@ -8,6 +8,7 @@
 - 美化的背景和卡片设计
 - 点击卡片可以查看相关图片
 - 响应式设计，适应不同屏幕尺寸
+- 底部固定的音乐播放器，播放浪漫的背景音乐
 
 ## 安装
 
@@ -49,6 +50,29 @@ public/images/
 
 为了保护隐私并减少仓库大小，`public/images` 目录中的图片文件不包含在 Git 版本控制中。您需要手动管理这些图片。
 
+## 音乐管理
+
+背景音乐文件应放在 `public/music` 目录中。支持的音频格式包括 MP3、WAV 等。例如：
+
+```
+public/music/
+  cant-help-falling-in-love.mp3
+  all-of-me.mp3
+  perfect.mp3
+  ...
+```
+
+要添加或更改播放列表，请编辑 `src/components/MusicPlayer.js` 文件中的 `playlist` 数组：
+
+```javascript
+const playlist = [
+  { title: "Can't Help Falling in Love", artist: "Elvis Presley", src: "/music/cant-help-falling-in-love.mp3" },
+  { title: "All of Me", artist: "John Legend", src: "/music/all-of-me.mp3" },
+  { title: "Perfect", artist: "Ed Sheeran", src: "/music/perfect.mp3" },
+  // 添加更多歌曲...
+];
+```
+
 ## 添加新的日期事件
 
 要添加新的日期事件，请编辑 `src/components/DaysSinceDates.js` 文件中的 `importantDates` 数组：
@@ -66,6 +90,7 @@ const importantDates = [
 
 - 背景样式可以在 `src/components/DaysSinceDates.js` 文件中的 `bg-love-pattern` 类中修改。
 - 卡片样式可以在同一文件中的相应 JSX 部分进行调整。
+- 音乐播放器样式可以在 `src/components/MusicPlayer.js` 文件中修改。
 
 ## 部署
 
@@ -76,12 +101,12 @@ const importantDates = [
 
 2. 将 `build` 目录部署到您的网络服务器。
 
-3. 确保将 `public/images` 目录中的图片复制到生产环境的相应位置。
+3. 确保将 `public/images` 和 `public/music` 目录中的文件复制到生产环境的相应位置。
 
 ## 注意事项
 
-- 请确保您有权使用所有图片，并遵守相关的版权法。
-- 定期备份 `public/images` 目录，因为这些文件不在版本控制中。
+- 请确保您有权使用所有图片和音乐文件，并遵守相关的版权法。
+- 定期备份 `public/images` 和 `public/music` 目录，因为这些文件不在版本控制中。
 
 ## 贡献
 
