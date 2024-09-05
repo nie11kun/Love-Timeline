@@ -19,7 +19,7 @@ const MusicPlayer = () => {
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const sourceRef = useRef(null);
-  const dataArrayRef = useRef(new Uint8Array(128));
+  const dataArrayRef = useRef(new Uint8Array(256));
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -83,7 +83,7 @@ const MusicPlayer = () => {
       const WIDTH = canvas.width;
       const HEIGHT = canvas.height;
 
-      analyserRef.current.fftSize = 256;
+      analyserRef.current.fftSize = 512; // 增加 fftSize 以获得更多数据点
       const bufferLength = analyserRef.current.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
       analyserRef.current.getByteFrequencyData(dataArray);
@@ -97,7 +97,7 @@ const MusicPlayer = () => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-      const barWidth = (WIDTH / bufferLength) * 2.5;
+      const barWidth = (WIDTH / bufferLength) * 1.5; // 减小频谱条宽度
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
@@ -105,23 +105,23 @@ const MusicPlayer = () => {
         dataArrayRef.current[i] = dataArrayRef.current[i] * 0.9 + dataArray[i] * 0.1;
         const barHeight = (dataArrayRef.current[i] / 255) * HEIGHT;
 
-        // 使用更柔和的颜色
-        const hue = 200 + (i / bufferLength) * 60; // 从浅蓝到紫色
-        const saturation = 70 + (i / bufferLength) * 30; // 增加饱和度变化
-        const lightness = 50 + (dataArrayRef.current[i] / 255) * 20; // 根据音量调整亮度
-        ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.6)`; // 降低不透明度
+        // 创建彩色渐变
+        const gradient = ctx.createLinearGradient(0, HEIGHT, 0, HEIGHT - barHeight);
+        gradient.addColorStop(0, `hsla(${(i / bufferLength) * 360}, 100%, 50%, 0.8)`);
+        gradient.addColorStop(1, `hsla(${((i / bufferLength) * 360 + 40) % 360}, 100%, 70%, 0.8)`);
+        ctx.fillStyle = gradient;
 
         // 绘制圆角矩形
         ctx.beginPath();
-        ctx.moveTo(x + 2, HEIGHT);
-        ctx.lineTo(x + 2, HEIGHT - barHeight + 4);
-        ctx.quadraticCurveTo(x + 2, HEIGHT - barHeight, x + 6, HEIGHT - barHeight);
-        ctx.lineTo(x + barWidth - 4, HEIGHT - barHeight);
-        ctx.quadraticCurveTo(x + barWidth, HEIGHT - barHeight, x + barWidth, HEIGHT - barHeight + 4);
+        ctx.moveTo(x + 1, HEIGHT);
+        ctx.lineTo(x + 1, HEIGHT - barHeight + 2);
+        ctx.quadraticCurveTo(x + 1, HEIGHT - barHeight, x + 3, HEIGHT - barHeight);
+        ctx.lineTo(x + barWidth - 2, HEIGHT - barHeight);
+        ctx.quadraticCurveTo(x + barWidth, HEIGHT - barHeight, x + barWidth, HEIGHT - barHeight + 2);
         ctx.lineTo(x + barWidth, HEIGHT);
         ctx.fill();
 
-        x += barWidth + 1;
+        x += barWidth + 0.5; // 减小频谱条之间的间隔
       }
     };
 
