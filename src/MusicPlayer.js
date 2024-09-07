@@ -1,11 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX } from 'lucide-react';
-
-const playlist = [
-  { title: "愛上你", artist: "S.H.E", src: "/music/S.H.E__愛上你.m4a" },
-  { title: "流星雨", artist: "F4", src: "/music/F4_-_流星雨.m4a" },
-  { title: "Ghibli Relaxing Music", artist: "スターバック", src: "/music/Ghibli_Relaxing_Music.m4a" },
-];
+import { playlist } from './playlist'; // 导入 playlist 数据
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);

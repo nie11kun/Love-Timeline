@@ -56,30 +56,31 @@ public/images/
 
 ```
 public/music/
-  cant-help-falling-in-love.mp3
-  all-of-me.mp3
-  perfect.mp3
+  S.H.E__愛上你.m4a
+  F4_-_流星雨.m4a
+  Ghibli_Relaxing_Music.m4a
   ...
 ```
 
-要添加或更改播放列表，请编辑 `src/components/MusicPlayer.js` 文件中的 `playlist` 数组：
+要添加或更改播放列表，请编辑 `src/playlist.js` 文件中的 `playlist` 数组：
 
 ```javascript
-const playlist = [
-  { title: "Can't Help Falling in Love", artist: "Elvis Presley", src: "/music/cant-help-falling-in-love.mp3" },
-  { title: "All of Me", artist: "John Legend", src: "/music/all-of-me.mp3" },
-  { title: "Perfect", artist: "Ed Sheeran", src: "/music/perfect.mp3" },
+export const playlist = [
+  { title: "愛上你", artist: "S.H.E", src: "/music/S.H.E__愛上你.m4a" },
+  { title: "流星雨", artist: "F4", src: "/music/F4_-_流星雨.m4a" },
+  { title: "Ghibli Relaxing Music", artist: "スターバック", src: "/music/Ghibli_Relaxing_Music.m4a" },
   // 添加更多歌曲...
 ];
 ```
 
 ## 添加新的日期事件
 
-要添加新的日期事件，请编辑 `src/components/DaysSinceDates.js` 文件中的 `importantDates` 数组：
+要添加新的日期事件，请编辑 `src/importantDates.js` 文件中的 `importantDates` 数组：
 
 ```javascript
-const importantDates = [
-  { date: '2022-01-19', event: '在青藤上相遇', image: '/images/2022-01-19/1.jpg' },
+export const importantDates = [
+  { date: '2022-11-19', event: '在青藤上相遇', image: '/images/2022-11-19/1.jpg' },
+  { date: '2022-11-24', event: '第一次见面', image: '/images/2022-11-24/1.jpg' },
   // 添加新的日期事件...
 ];
 ```
