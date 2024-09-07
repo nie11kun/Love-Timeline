@@ -2,6 +2,12 @@
 
 这是一个展示重要日期和纪念日的 React 应用程序。它创建了一个温馨的时间线，展示了您与伴侣之间的重要时刻，并配有背景音乐播放器。
 
+## 在线演示
+
+您可以在这里查看项目的在线演示：[https://love-timeline.niekun.net](https://love-timeline.niekun.net)
+
+![Demo Screenshot](./public/demo.jpg)
+
 ## 功能
 
 - 展示重要日期的卡片，包括事件、日期和已经过去的天数
