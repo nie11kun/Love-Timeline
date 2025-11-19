@@ -6,4 +6,5 @@ export const importantDates = [
     { date: '2023-10-05', event: '我们订婚啦', image: '/images/2023-10-05/1.jpg' },
     { date: '2023-10-30', event: '我们领证啦', image: '/images/2023-10-30/1.jpg' },
     { date: '2024-01-28', event: '我们结婚啦', image: '/images/2024-01-28/1.jpg' },
+    { date: '2025-08-30', event: '有了新生命', image: '/images/2025-08-30/1.jpg' },
 ];
